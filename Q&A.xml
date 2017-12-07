@@ -1,0 +1,34 @@
+<quiz>
+	<round>
+		<question></question>
+		<options>
+			<optionA></optionA>
+			<optionB></optionB>
+			<optionC></optionC>
+			<optionD></optionD>
+		</options>
+		<answer></answer>
+	</round>
+
+	<round>
+		<question></question>
+		<options>
+			<optionA></optionA>
+			<optionB></optionB>
+			<optionC></optionC>
+			<optionD></optionD>
+		</options>
+		<answer></answer>
+	</round>
+
+	<round>
+		<question></question>
+		<options>
+			<optionA></optionA>
+			<optionB></optionB>
+			<optionC></optionC>
+			<optionD></optionD>
+		</options>
+		<answer></answer>
+	</round>
+</quiz>
