@@ -18,11 +18,54 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define true (1 == 1)
+#define false (!true)
+
 /* el puerto usado */
 #define PORT 2024
 
 /* el código de error devuelto por ciertas llamadas */
 extern int errno;
+
+/* Threads */
+pthread_t tid[2];
+
+/* Array with all clients */
+Array client;
+
+struct sockaddr_in server;	// la estructura utilizada por el servidor
+struct sockaddr_in from;
+int sd;			//descriptor de socket
+socklen_t length = sizeof(from);
+
+typedef struct{
+	int *array;
+	size_t used;
+	size_t size;
+} Array;
+
+void initArray(Array *a, size_t initialSize){
+	a->array = (int *)malloc(initialSize * sizeof(int));
+	a->used = 0;
+	a->size = initialSize;
+}
+
+void insertArray(Array *a, int element){
+	// a->used is the number of used entries, because a->array[a->used++] updates a->used only *after* the array has been accessed.
+	// Therefore a->used can go up to a->size
+	if(a->used == a->size){
+		a->size *= 2;
+		a->array = (int *)realloc(a->array, a->size * sizeof(int));
+	}
+
+	a->array[a->used++] = element;
+}
+
+void freeArray(Array *a){
+	free(a->array);
+	a->array = NULL;
+	a->used = a->size = 0;
+}
 
 struct Options{
 	char A[30];
@@ -41,11 +84,23 @@ struct ResultRound{
 	int points;
 };
 
+void waitForClients(){
+	while(true){
+		insertArray(&client, accept(sd, (struct sockaddr *) &from, &length));
+
+		/* error al aceptar una conexión de un cliente */
+		if (client < 0){
+			perror("[server]Error en accept().\n");
+			continue;
+		}
+	}
+}
+
 int main(){
-	struct sockaddr_in server;	// la estructura utilizada por el servidor
-	struct sockaddr_in from;
-	int sd;			//descriptor de socket
+	int i = 0;
 	FILE *XML_questions;
+
+	initArray(&clients, 2);
 
 	if(!(XML_questions = fopen("Q&A.xml", "r"))){
 		perror("[server]Error al abrir el archivo de preguntas\n");
@@ -65,10 +120,10 @@ int main(){
 	/* llene la estructura utilizada por el servidor */
 	/* estableciendo la familia de sockets */
 	server.sin_family = AF_INET;
-	
+
 	/* aceptamos cualquier dirección */
 	server.sin_addr.s_addr = htonl(INADDR_ANY);
-	
+
 	/* usamos un puerto de usuario */
 	server.sin_port = htons(PORT);
 
@@ -82,5 +137,27 @@ int main(){
 	if (listen(sd, 5) == -1){
 		perror ("[server]Error de listen().\n");
 		return errno;
+	}
+
+	while(i < 2){	// At least 2 players are needed
+		client[i] = accept(sd, (struct sockaddr *) &from, &length);
+
+		/* error al aceptar una conexión de un cliente */
+		if (client < 0){
+			perror("[server]Error en accept().\n");
+			continue;
+		}
+
+		i++;
+	}
+
+	int err;
+	err = pthread_create(&(tid[0]), NULL, &waitForClients, NULL);
+	
+	if (err != 0){
+		printf("\nCan't create thread :[%s]", strerror(err));
+	}
+	else{
+		printf("\n Thread created successfully\n");
 	}
 }
