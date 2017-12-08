@@ -70,6 +70,11 @@ int main(int argc, char *argv[]){
 	/* armamos el puerto */
 	port = atoi(argv[2]);
 
+	printf("Welcome to Quiz Game.\n");
+	printf("What is your name? (It will be used to identify you during the game): ");
+	fflush(stdout);
+	read(0, &username, 100);
+
 	/* creación del socket */
 	if((sd = socket(AF_INET, SOCK_STREAM, 0)) == -1){
 		perror("Error de socket().\n");
@@ -91,11 +96,6 @@ int main(int argc, char *argv[]){
 		perror("[client]Error en connect().\n");
 		return errno;
     }
-
-	printf("Welcome to Quiz Game.\n");
-	printf("What is your name? (It will be used to identify you during the game): ");
-	fflush(stdout);
-	read(0, &username, 100);
 
 	/* enviamos el nombre de usuario al servidor para ser añadidos a la partida */
 	if(write (sd, &username, sizeof(username)) <= 0){

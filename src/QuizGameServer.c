@@ -30,33 +30,39 @@ extern int errno;
 /* Threads */
 pthread_t tid[2];
 
-/* Array with all clients */
-Array client;
+/* struct for the players */
+struct Player{
+	int id;				// ID to connect to the player
+	int score = 0;		// Score obtained during the game
+	char username[50];	// Username
+};
 
+/* global variables to be able to catch players all the time */
 struct sockaddr_in server;	// la estructura utilizada por el servidor
 struct sockaddr_in from;
 int sd;			//descriptor de socket
 socklen_t length = sizeof(from);
+Array players;
 
-/* https://stackoverflow.com/a/3536261/7071193 */
+/*************************** https://stackoverflow.com/a/3536261/7071193 ***************************/
 typedef struct{
-	int *array;
+	struct Player *array;
 	size_t used;
 	size_t size;
 } Array;
 
 void initArray(Array *a, size_t initialSize){
-	a->array = (int *)malloc(initialSize * sizeof(int));
+	a->array = (struct Player *)malloc(initialSize * sizeof(struct Player));
 	a->used = 0;
 	a->size = initialSize;
 }
 
-void insertArray(Array *a, int element){
+void insertArray(Array *a, struct Player element){
 	// a->used is the number of used entries, because a->array[a->used++] updates a->used only *after* the array has been accessed.
 	// Therefore a->used can go up to a->size
 	if(a->used == a->size){
 		a->size *= 2;
-		a->array = (int *)realloc(a->array, a->size * sizeof(int));
+		a->array = (struct Player *)realloc(a->array, a->size * sizeof(struct Player));
 	}
 
 	a->array[a->used++] = element;
@@ -67,6 +73,7 @@ void freeArray(Array *a){
 	a->array = NULL;
 	a->used = a->size = 0;
 }
+/*****************************************************************************************************/
 
 struct Options{
 	char A[30];
@@ -86,14 +93,24 @@ struct ResultRound{
 };
 
 void waitForClients(){
-	while(true){
-		insertArray(&client, accept(sd, (struct sockaddr *) &from, &length));
+	struct Player aux;
 
+	while(true){
+		aux.id = accept(sd, (struct sockaddr *) &from, &length)
+		
 		/* error al aceptar una conexión de un cliente */
-		if (client < 0){
+		if(aux.id < 0){
 			perror("[server]Error en accept().\n");
 			continue;
 		}
+		
+		if(read(aux.id, &aux.username, sizeof(aux.username)) <= 0){
+			perror("[server]Error en read() del client.\n");
+			close(client);	/* cerramos la conexión con el cliente */
+			continue;		/* seguimos escuchando */
+		}
+
+		insertArray(&players, aux);
 	}
 }
 
@@ -101,8 +118,9 @@ int main(){
 	int i = 0;
 	FILE *XML_questions;
 
-	initArray(&clients, 2);
+	initArray(&players, 2);
 
+	/* Opening the file with the questions */
 	if(!(XML_questions = fopen("Q&A.xml", "r"))){
 		perror("[server]Error al abrir el archivo de preguntas\n");
 		return errno;
@@ -140,18 +158,7 @@ int main(){
 		return errno;
 	}
 
-	while(i < 2){	// At least 2 players are needed
-		client[i] = accept(sd, (struct sockaddr *) &from, &length);
-
-		/* error al aceptar una conexión de un cliente */
-		if (client < 0){
-			perror("[server]Error en accept().\n");
-			continue;
-		}
-
-		i++;
-	}
-
+	/* Creation of a thread that will keep creating players */
 	int err;
 	err = pthread_create(&(tid[0]), NULL, &waitForClients, NULL);
 	
@@ -161,4 +168,6 @@ int main(){
 	else{
 		printf("\n Thread created successfully\n");
 	}
+
+	while(players.used < 2);	// The server will wait until there is at least two players
 }
