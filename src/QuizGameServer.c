@@ -38,6 +38,7 @@ struct sockaddr_in from;
 int sd;			//descriptor de socket
 socklen_t length = sizeof(from);
 
+/* https://stackoverflow.com/a/3536261/7071193 */
 typedef struct{
 	int *array;
 	size_t used;
