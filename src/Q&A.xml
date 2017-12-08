@@ -1,34 +1,89 @@
 <quiz>
 	<round>
-		<question></question>
+		<question>A starving person is:</question>
 		<options>
-			<optionA></optionA>
-			<optionB></optionB>
-			<optionC></optionC>
-			<optionD></optionD>
+			<optionA>Irritable</optionA>
+			<optionB>Hungry</optionB>
+			<optionC>Furious</optionC>
+			<optionD>Scared</optionD>
 		</options>
-		<answer></answer>
+		<answer>B</answer>
 	</round>
 
 	<round>
-		<question></question>
+		<question>What is the name of the movable membranes covered with skin that protect the eyes</question>
 		<options>
-			<optionA></optionA>
-			<optionB></optionB>
-			<optionC></optionC>
-			<optionD></optionD>
+			<optionA>Eyebrows</optionA>
+			<optionB>Pupils</optionB>
+			<optionC>Eyelids</optionC>
+			<optionD>Spectacles</optionD>
 		</options>
-		<answer></answer>
+		<answer>C</answer>
 	</round>
 
 	<round>
-		<question></question>
+		<question>Which one of these instruments measures oil density?</question>
 		<options>
-			<optionA></optionA>
-			<optionB></optionB>
-			<optionC></optionC>
-			<optionD></optionD>
+			<optionA>Dynamometer</optionA>
+			<optionB>Micrometer</optionB>
+			<optionC>Oleometer</optionC>
+			<optionD>Holometer</optionD>
 		</options>
-		<answer></answer>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>Albinism occurs due to the lack of:</question>
+		<options>
+			<optionA>Calcium</optionA>
+			<optionB>Pigmentation</optionB>
+			<optionC>Vitamin A</optionC>
+			<optionD>Oxygen</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>Who directed The Godfather in 1972?</question>
+		<options>
+			<optionA>Roman Polanski</optionA>
+			<optionB>Franco Zeffirelli</optionB>
+			<optionC>Francis Ford Copolla</optionC>
+			<optionD>Federico Fellini</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>Technique that describes and represents in detail the surface of a land:</question>
+		<options>
+			<optionA>Topography</optionA>
+			<optionB>Serigraphy</optionB>
+			<optionC>Epigraphy</optionC>
+			<optionD>Holography</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>Which of the next ones is a Harry Potter book written by J.K.Rowling?</question>
+		<options>
+			<optionA>The lost ark</optionA>
+			<optionB>The prisoner of Azkaban</optionB>
+			<optionC>Dark magic</optionC>
+			<optionD>The wand</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>With what material did Michelangelo sculpt "La Piedad" located in the Vatican?</question>
+		<options>
+			<optionA>Bronze</optionA>
+			<optionB>Marble</optionB>
+			<optionC>Wood</optionC>
+			<optionD>Cast</optionD>
+		</options>
+		<answer>B</answer>
 	</round>
 </quiz>
