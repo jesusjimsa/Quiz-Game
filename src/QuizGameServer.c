@@ -12,6 +12,11 @@
 	the game so that the game continues smoothly.
 */
 
+/**
+ * @todo Parse xml file and save it in Round structure, parse the entire file at the
+ * beginning of the execution and save it in an array of rounds
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
@@ -43,6 +48,7 @@ struct sockaddr_in from;
 int sd;			//descriptor de socket
 socklen_t length = sizeof(from);
 Array players;
+ArrayRound rounds;
 
 /*************************** https://stackoverflow.com/a/3536261/7071193 ***************************/
 typedef struct{
@@ -75,6 +81,37 @@ void freeArray(Array *a){
 }
 /*****************************************************************************************************/
 
+/*************************** https://stackoverflow.com/a/3536261/7071193 ***************************/
+typedef struct{
+	struct Round *array;
+	size_t used;
+	size_t size;
+} ArrayRound;
+
+void initArrayRound(ArrayRound *a, size_t initialSize){
+	a->array = (struct Round *)malloc(initialSize * sizeof(struct Round));
+	a->used = 0;
+	a->size = initialSize;
+}
+
+void insertArrayRound(ArrayRound *a, struct Round element){
+	// a->used is the number of used entries, because a->array[a->used++] updates a->used only *after* the array has been accessed.
+	// Therefore a->used can go up to a->size
+	if(a->used == a->size){
+		a->size *= 2;
+		a->array = (struct Round *)realloc(a->array, a->size * sizeof(struct Round));
+	}
+
+	a->array[a->used++] = element;
+}
+
+void freeArrayRound(ArrayRound *a){
+	free(a->array);
+	a->array = NULL;
+	a->used = a->size = 0;
+}
+/*****************************************************************************************************/
+
 struct Options{
 	char A[30];
 	char B[30];
@@ -85,11 +122,7 @@ struct Options{
 struct Round{
 	char question[100];
 	struct Options options;
-};
-
-struct ResultRound{
-	char correct_answer[50];
-	int points;
+	char correct_answer;
 };
 
 void waitForClients(){
@@ -100,12 +133,12 @@ void waitForClients(){
 		
 		/* error al aceptar una conexión de un cliente */
 		if(aux.id < 0){
-			perror("[server]Error en accept().\n");
+			perror("[server]Error in accept().\n");
 			continue;
 		}
 		
 		if(read(aux.id, &aux.username, sizeof(aux.username)) <= 0){
-			perror("[server]Error en read() del client.\n");
+			perror("[server]Error in read() from client.\n");
 			close(client);	/* cerramos la conexión con el cliente */
 			continue;		/* seguimos escuchando */
 		}
@@ -114,21 +147,61 @@ void waitForClients(){
 	}
 }
 
+void XMLParser(FILE *XML_questions){
+	char line[256];
+	char lineQ[12];
+	char lineOA[12];
+	char lineOB[12];
+	char lineOC[12];
+	char lineOD[12];
+	char lineAns[10];
+	struct Round ronda;
+	int i;
+
+ 	while(fgets(line, sizeof(line), XML_questions)) {
+		//This is done to choose detect the labels
+		for(i = 0; i < 12; i++){
+			lineQ[i] = line[i];
+			lineOA[i] = line[i];
+			lineOB[i] = line[i];
+			lineOC[i] = line[i];
+			lineOD[i] = line[i];
+
+			if(i < 10){
+				lineAns[i] = line[i];
+			}
+		}
+
+		if(strcmp("<quiz>\n", line)){
+			continue;
+		}
+		else{
+			if(strcmp("\t<round>\n", line)){
+				continue;
+			}
+			else{
+				if(strcmp("\t\t<question>"))
+			}
+		}
+    }
+}
+
 int main(){
 	int i = 0;
 	FILE *XML_questions;
 
 	initArray(&players, 2);
+	initArrayRound(&rounds, 2);
 
 	/* Opening the file with the questions */
 	if(!(XML_questions = fopen("Q&A.xml", "r"))){
-		perror("[server]Error al abrir el archivo de preguntas\n");
+		perror("[server]Error opening file with questions\n");
 		return errno;
 	}
 
 	/* creando un socket */
 	if((sd = socket (AF_INET, SOCK_STREAM, 0)) == -1){
-		perror("[server]Error de socket().\n");
+		perror("[server]Error in socket().\n");
 		return errno;
 	}
 
@@ -148,13 +221,13 @@ int main(){
 
 	/* adjuntamos el socket */
 	if (bind(sd, (struct sockaddr *) &server, sizeof(struct sockaddr)) == -1){
-		perror("[server]Error en bind().\n");
+		perror("[server]Error in bind().\n");
 		return errno;
 	}
 
 	/* le pedimos al servidor que escuche si los clientes vienen a conectarse */
 	if (listen(sd, 5) == -1){
-		perror ("[server]Error de listen().\n");
+		perror ("[server]Error in listen().\n");
 		return errno;
 	}
 
