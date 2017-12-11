@@ -430,5 +430,6 @@ __pycache__/
 ### Added by me ###
 *.pdf
 *.pages
+/.vscode
 
 # End of https://www.gitignore.io/api/c,macos,visualstudio
