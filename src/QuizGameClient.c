@@ -17,6 +17,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -143,7 +144,7 @@ int main(int argc, char *argv[]){
 		// 	return errno;
 		// }
 
-		points_obtained_in_round = printResult(ronda, strcmp(answer, ronda.correct_answer));
+		points_obtained_in_round = printResult(ronda, strcmp(&answer, &ronda.correct_answer));
 
 		if(write(sd, &points_obtained_in_round, sizeof(int)) <= 0){
 			perror("[client]Error in write() to server.\n");
@@ -164,7 +165,7 @@ int main(int argc, char *argv[]){
 	}
 
 	printf("Final clasification:\n");
-	printf("%s", &result);
+	printf("%s", result);
 
 	close(sd);
 }
