@@ -17,6 +17,9 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #define true (1 == 1)
 #define false (!true)
@@ -53,7 +56,7 @@ void printRound(struct Round ronda){
 
 int printResult(struct Round ronda, int answer){
 	int points_obtained;
-	printf("The right answer was: %s\n", ronda.correct_answer);
+	printf("The right answer was: %s\n", &ronda.correct_answer);
 	
 	if(answer == true){
 		printf("You get 10 points in this round\n");
@@ -71,8 +74,9 @@ int main(int argc, char *argv[]){
 	int sd;			// descriptor de socket
 	struct sockaddr_in server;	// la estructura utilizada para conectar
 	char username[100];
-	struct Round ronda;
+	char result[51200];
 	char answer;
+	struct Round ronda;
 	//struct ResultRound result_round;
 	int points_obtained_in_round;
 	int finish = 1;	// When the server sends a -1 value to this variable, the game finishes
@@ -141,7 +145,7 @@ int main(int argc, char *argv[]){
 
 		points_obtained_in_round = printResult(ronda, strcmp(answer, ronda.correct_answer));
 
-		if(write (sd, &points_obtained_in_round, sizeof(int)) <= 0){
+		if(write(sd, &points_obtained_in_round, sizeof(int)) <= 0){
 			perror("[client]Error in write() to server.\n");
 			return errno;
 		}
@@ -152,5 +156,15 @@ int main(int argc, char *argv[]){
 		}
 	}
 
-	/* The game is over, now we receive the score and finish the game */
+	/* The game is over, now we receive the scores and finish the game */
+
+	if(read(sd, &result, sizeof(result)) < 0){
+		perror("[client]Error in read() from server.\n");
+		return errno;
+	}
+
+	printf("Final clasification:\n");
+	printf("%s", &result);
+
+	close(sd);
 }
