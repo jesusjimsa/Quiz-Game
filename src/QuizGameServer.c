@@ -128,13 +128,13 @@ socklen_t length = sizeof(from);
 Array players;
 ArrayRound rounds;
 
-void waitForClients(){
+void waitForClients(void *arg){
 	struct Player aux;
 
 	aux.score = 0;
 
 	while(true){
-		aux.id = accept(sd, (struct sockaddr *) &from, &length)
+		aux.id = accept(sd, (struct sockaddr *) &from, &length);
 		
 		/* error al aceptar una conexión de un cliente */
 		if(aux.id < 0){
@@ -301,7 +301,7 @@ int main(){
 	}
 
 	XMLParser(XML_questions);	// We parse the file with the questions
-	close(XML_questions);		// We don't need this file anymore, so we can close it
+	fclose(XML_questions);		// We don't need this file anymore, so we can close it
 
 	/* creando un socket */
 	if((sd = socket (AF_INET, SOCK_STREAM, 0)) == -1){
@@ -346,6 +346,8 @@ int main(){
 		printf("\n Thread created successfully\n");
 	}
 
+	printf("Waiting for at least two players\n");
+
 	while(players.used < 2);	// The server will wait until there is at least two players
 
 	sleep(5);	// After two players have joined, we give 5 seconds to the rest of the players to join
@@ -368,15 +370,19 @@ int main(){
 			players.array[j].score += add_points;
 
 			if(i < 14){
+				int not_finish = 1;
+
 				// We send the signal of not finishing the game
-				if(write(players.array[j].id, 1, sizeof(int)) <= 0){
+				if(write(players.array[j].id, &not_finish, sizeof(int)) <= 0){
 					perror("[client]Error in write() to server.\n");
 					return errno;
 				}
 			}
 			else{
+				int finish = -1;
+
 				// The game finishes
-				if(write(players.array[j].id, -1, sizeof(int)) <= 0){
+				if(write(players.array[j].id, &finish, sizeof(int)) <= 0){
 					perror("[client]Error in write() to server.\n");
 					return errno;
 				}
@@ -399,6 +405,6 @@ int main(){
 		close(players.array[i].id);
 	}
 
-	freeArray(players);
-	freeArrayRound(rounds);
+	freeArray(&players);
+	freeArrayRound(&rounds);
 }
