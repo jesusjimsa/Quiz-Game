@@ -38,17 +38,22 @@ pthread_t tid[2];
 /* struct for the players */
 struct Player{
 	int id;				// ID to connect to the player
-	int score = 0;		// Score obtained during the game
+	int score;		// Score obtained during the game
 	char username[50];	// Username
 };
 
-/* global variables to be able to catch players all the time */
-struct sockaddr_in server;	// la estructura utilizada por el servidor
-struct sockaddr_in from;
-int sd;			//descriptor de socket
-socklen_t length = sizeof(from);
-Array players;
-ArrayRound rounds;
+struct Options{
+	char A[50];
+	char B[50];
+	char C[50];
+	char D[50];
+};
+
+struct Round{
+	char question[100];
+	struct Options options;
+	char correct_answer;
+};
 
 /*************************** https://stackoverflow.com/a/3536261/7071193 ***************************/
 typedef struct{
@@ -112,21 +117,18 @@ void freeArrayRound(ArrayRound *a){
 }
 /*****************************************************************************************************/
 
-struct Options{
-	char A[30];
-	char B[30];
-	char C[30];
-	char D[30];
-};
-
-struct Round{
-	char question[100];
-	struct Options options;
-	char correct_answer;
-};
+/* global variables to be able to catch players all the time */
+struct sockaddr_in server;	// la estructura utilizada por el servidor
+struct sockaddr_in from;
+int sd;			//descriptor de socket
+socklen_t length = sizeof(from);
+Array players;
+ArrayRound rounds;
 
 void waitForClients(){
 	struct Player aux;
+
+	aux.score = 0;
 
 	while(true){
 		aux.id = accept(sd, (struct sockaddr *) &from, &length)
@@ -149,12 +151,12 @@ void waitForClients(){
 
 void XMLParser(FILE *XML_questions){
 	char line[256];
-	char lineQ[12];
-	char lineOA[12];
-	char lineOB[12];
-	char lineOC[12];
-	char lineOD[12];
-	char lineAns[10];
+	char lineQ[13];
+	char lineOA[13];
+	char lineOB[13];
+	char lineOC[13];
+	char lineOD[13];
+	char lineAns[11];
 	struct Round ronda;
 	int i;
 
@@ -172,15 +174,109 @@ void XMLParser(FILE *XML_questions){
 			}
 		}
 
-		if(strcmp("<quiz>\n", line)){
+		lineQ[12] = '\0';
+		lineOA[12] = '\0';
+		lineOB[12] = '\0';
+		lineOC[12] = '\0';
+		lineOD[12] = '\0';
+		lineAns[10] = '\0';
+
+		if(!strcmp("<quiz>\n", line)){
 			continue;
 		}
 		else{
-			if(strcmp("\t<round>\n", line)){
+			if(!strcmp("\t<round>\n", line)){
 				continue;
 			}
 			else{
-				if(strcmp("\t\t<question>"))
+				if(!strcmp("\t\t<question>", lineQ)){
+					int j = 12;
+
+					while(line[j] != '<' && line[j + 1] != '/'){
+						ronda.question[j - 12] = line[j];
+
+						j++;
+					}
+
+					ronda.question[j - 12] = '\0';
+				}
+				else{
+					if(!strcmp("\t\t<options>\n", line)){
+						continue;
+					}
+					else{
+						if(!strcmp("\t\t\t<optionA>", lineOA)){
+							int j = 12;
+
+							while(line[j] != '<' && line[j + 1] != '/'){
+								ronda.options.A[j - 12] = line[j];
+
+								j++;
+							}
+
+							ronda.options.A[j - 12] = '\0';
+						}
+						else{
+							if(!strcmp("\t\t\t<optionB>", lineOB)){
+								int j = 12;
+
+								while(line[j] != '<' && line[j + 1] != '/'){
+									ronda.options.B[j - 12] = line[j];
+
+									j++;
+								}
+
+								ronda.options.B[j - 12] = '\0';
+							}
+							else{
+								if(!strcmp("\t\t\t<optionC>", lineOC)){
+									int j = 12;
+
+									while(line[j] != '<' && line[j + 1] != '/'){
+										ronda.options.C[j - 12] = line[j];
+
+										j++;
+									}
+
+									ronda.options.C[j - 12] = '\0';
+								}
+								else{
+									if(!strcmp("\t\t\t<optionD>", lineOD)){
+										int j = 12;
+
+										while(line[j] != '<' && line[j + 1] != '/'){
+											ronda.options.D[j - 12] = line[j];
+
+											j++;
+										}
+
+										ronda.options.D[j - 12] = '\0';
+									}
+									else{
+										if(!strcmp("\t\t</options>\n", line)){
+											continue;
+										}
+										else{
+											if(!strcmp("\t\t<answer>", lineAns)){
+												ronda.correct_answer = line[10];
+											}
+											else{
+												if(!strcmp("\t</round>\n", line)){
+													insertArrayRound(&rounds, ronda);
+												}
+												else{
+													if(!strcmp("\n", line)){
+														continue;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
     }
