@@ -47,7 +47,7 @@ struct Round{
 
 void printRound(struct Round ronda){
 	printf("%s\n", ronda.question);
-	printf("A. %s\tB. %s\tC. %s\tD. %s\n", ronda.options.A, ronda.options.B, ronda.options.C, ronda.options.D);
+	printf("A. %s\tB. %s\nC. %s\tD. %s\n", ronda.options.A, ronda.options.B, ronda.options.C, ronda.options.D);
 	printf("Which option is the right answer, A, B, C or D?\n");
 }
 
