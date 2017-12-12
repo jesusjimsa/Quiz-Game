@@ -431,5 +431,7 @@ __pycache__/
 *.pdf
 *.pages
 /.vscode
+QuizGameClient
+QuizGameServer
 
 # End of https://www.gitignore.io/api/c,macos,visualstudio
