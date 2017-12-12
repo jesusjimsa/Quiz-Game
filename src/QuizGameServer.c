@@ -22,6 +22,9 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #define true (1 == 1)
 #define false (!true)
@@ -141,7 +144,7 @@ void waitForClients(){
 		
 		if(read(aux.id, &aux.username, sizeof(aux.username)) <= 0){
 			perror("[server]Error in read() from client.\n");
-			close(client);	/* cerramos la conexión con el cliente */
+			close(aux.id);	/* cerramos la conexión con el cliente */
 			continue;		/* seguimos escuchando */
 		}
 
@@ -283,7 +286,9 @@ void XMLParser(FILE *XML_questions){
 }
 
 int main(){
-	int i = 0;
+	int i, j;
+	int add_points;
+	char result[51200];
 	FILE *XML_questions;
 
 	initArray(&players, 2);
@@ -294,6 +299,9 @@ int main(){
 		perror("[server]Error opening file with questions\n");
 		return errno;
 	}
+
+	XMLParser(XML_questions);	// We parse the file with the questions
+	close(XML_questions);		// We don't need this file anymore, so we can close it
 
 	/* creando un socket */
 	if((sd = socket (AF_INET, SOCK_STREAM, 0)) == -1){
@@ -316,13 +324,13 @@ int main(){
 	server.sin_port = htons(PORT);
 
 	/* adjuntamos el socket */
-	if (bind(sd, (struct sockaddr *) &server, sizeof(struct sockaddr)) == -1){
+	if(bind(sd, (struct sockaddr *) &server, sizeof(struct sockaddr)) == -1){
 		perror("[server]Error in bind().\n");
 		return errno;
 	}
 
 	/* le pedimos al servidor que escuche si los clientes vienen a conectarse */
-	if (listen(sd, 5) == -1){
+	if(listen(sd, 5) == -1){
 		perror ("[server]Error in listen().\n");
 		return errno;
 	}
@@ -331,7 +339,7 @@ int main(){
 	int err;
 	err = pthread_create(&(tid[0]), NULL, &waitForClients, NULL);
 	
-	if (err != 0){
+	if(err != 0){
 		printf("\nCan't create thread :[%s]", strerror(err));
 	}
 	else{
@@ -339,4 +347,58 @@ int main(){
 	}
 
 	while(players.used < 2);	// The server will wait until there is at least two players
+
+	sleep(5);	// After two players have joined, we give 5 seconds to the rest of the players to join
+
+	// Players that are here since the beginning of the game will participate in 15 rounds
+	for(i = 0; i < 15; i++){
+		for(j = 0; j < players.used; j++){
+			// We send a random question to the player
+			if(write(players.array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used])) <= 0){
+				perror("[client]Error in write() to server.\n");
+				return errno;
+			}
+
+			// We receive the points obteined with this question
+			if(read(players.array[j].id, &add_points, sizeof(int)) <= 0){
+				perror("[client]Error in read() from server.\n");
+				return errno;
+			}
+
+			players.array[j].score += add_points;
+
+			if(i < 14){
+				// We send the signal of not finishing the game
+				if(write(players.array[j].id, 1, sizeof(int)) <= 0){
+					perror("[client]Error in write() to server.\n");
+					return errno;
+				}
+			}
+			else{
+				// The game finishes
+				if(write(players.array[j].id, -1, sizeof(int)) <= 0){
+					perror("[client]Error in write() to server.\n");
+					return errno;
+				}
+			}	
+		}
+	}
+
+	for(i = 0; i < players.used; i++){
+		sprintf(result, "%dº - %s - %d points\n", i, players.array[i].username, players.array[i].score);
+	}
+
+	for(i = 0; i < players.used; i++){
+		if(write(players.array[j].id, result, sizeof(result)) <= 0){
+			perror("[client]Error in write() to server.\n");
+			return errno;
+		}
+	}
+
+	for(i = 0; i < players.used; i++){
+		close(players.array[i].id);
+	}
+
+	freeArray(players);
+	freeArrayRound(rounds);
 }
