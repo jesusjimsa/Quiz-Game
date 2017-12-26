@@ -13,8 +13,12 @@
 */
 
 /**
- * @todo Parse xml file and save it in Round structure, parse the entire file at the
- * beginning of the execution and save it in an array of rounds
+ * @todo Fix parser
+*/
+
+/**
+ * @todo Just the first player receives question, and just one time
+ * the rest of the players and rounds don't work
 */
 
 #include <stdio.h>
@@ -36,12 +40,12 @@
 extern int errno;
 
 /* Threads */
-pthread_t tid[2];
+pthread_t tid[5];		// Max 50 simultaneous games (with infinite players each)
 
 /* struct for the players */
 struct Player{
 	int id;				// ID to connect to the player
-	int score;		// Score obtained during the game
+	int score;			// Score obtained during the game
 	char username[50];	// Username
 };
 
@@ -87,7 +91,7 @@ void freeArray(Array *a){
 	a->array = NULL;
 	a->used = a->size = 0;
 }
-/*****************************************************************************************************/
+/***************************************************************************************************/
 
 /*************************** https://stackoverflow.com/a/3536261/7071193 ***************************/
 typedef struct{
@@ -118,37 +122,119 @@ void freeArrayRound(ArrayRound *a){
 	a->array = NULL;
 	a->used = a->size = 0;
 }
-/*****************************************************************************************************/
+/***************************************************************************************************/
 
 /* global variables to be able to catch players all the time */
 struct sockaddr_in server;	// la estructura utilizada por el servidor
 struct sockaddr_in from;
 int sd;			//descriptor de socket
+int semaphore = -1;
 socklen_t length = sizeof(from);
-Array players;
+Array players[50];
 ArrayRound rounds;
 
-void waitForClients(void *arg){
+void waitForClients(int *current_game){
 	struct Player aux;
 
 	aux.score = 0;
 
 	while(true){
 		aux.id = accept(sd, (struct sockaddr *) &from, &length);
-		
+
 		/* error al aceptar una conexión de un cliente */
 		if(aux.id < 0){
 			perror("[server]Error in accept().\n");
 			continue;
 		}
-		
+
 		if(read(aux.id, &aux.username, sizeof(aux.username)) <= 0){
 			perror("[server]Error in read() from client.\n");
 			close(aux.id);	/* cerramos la conexión con el cliente */
 			continue;		/* seguimos escuchando */
 		}
 
-		insertArray(&players, aux);
+		insertArray(&players[*current_game], aux);
+	}
+}
+
+void game(int *current_game){
+	pthread_t searching;
+	int i, j;
+	int add_points;
+	char result[51200];
+
+	printf("Waiting for at least two players\n");
+
+	/* Creation of a thread that will keep creating players */
+	int err;
+	err = pthread_create(&(searching), NULL, &waitForClients, &(*current_game));
+
+	if(err != 0){
+		printf("\nCan't create thread :[%s]", strerror(err));
+	}
+	else{
+		printf("\nThread created successfully waiter %d\n", *current_game);
+	}
+
+	while(players[*current_game].used < 2);	// The server will wait until there is at least two players
+
+	sleep(5);	// After two players have joined, we give 5 seconds to the rest of the players to join in time
+
+	pthread_cancel(searching);	// We won't wait any more players in this game
+
+	semaphore = 1;	// The next game can begin
+
+	// Players that are here since the beginning of the game will participate in 15 rounds
+	for(i = 0; i < 15; i++){
+		for(j = 0; j < players[*current_game].used; j++){
+			// We send a random question to the player
+			if(write(players[*current_game].array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used])) <= 0){
+				perror("[client]Error in write() to server.\n");
+				break;
+			}
+			
+			printf("Question sent to player %d in game %d\n", j, *current_game);
+
+			// We receive the points obtained with this question
+			if(read(players[*current_game].array[j].id, &add_points, sizeof(int)) <= 0){
+				perror("[client]Error in read() from server.\n");
+				break;
+			}
+
+			printf("Points added to player %d in game %d\n", j, *current_game);
+
+			players[*current_game].array[j].score += add_points;
+
+			if(i < 14){
+				int not_finish = 1;
+
+				// We send the signal of not finishing the game
+				if(write(players[*current_game].array[j].id, &not_finish, sizeof(int)) <= 0){
+					perror("[client]Error in write() to server.\n");
+					break;
+				}
+			}
+			else{
+				int finish = -1;
+
+				// The game finishes
+				if(write(players[*current_game].array[j].id, &finish, sizeof(int)) <= 0){
+					perror("[client]Error in write() to server.\n");
+					break;
+				}
+			}
+		}
+	}
+
+	for(i = 0; i < players[*current_game].used; i++){
+		sprintf(result, "%dº - %s - %d points\n", i, players[*current_game].array[i].username, players[*current_game].array[i].score);
+	}
+
+	for(i = 0; i < players[*current_game].used; i++){
+		if(write(players[*current_game].array[j].id, result, sizeof(result)) <= 0){
+			perror("[client]Error in write() to server.\n");
+			break;
+		}
 	}
 }
 
@@ -287,11 +373,13 @@ void XMLParser(FILE *XML_questions){
 
 int main(){
 	int i, j;
-	int add_points;
-	char result[51200];
+	int current_game = 0;
 	FILE *XML_questions;
 
-	initArray(&players, 2);
+	for(i = 0; i < 50; i++){
+		initArray(&players[i], 2);
+	}
+
 	initArrayRound(&rounds, 2);
 
 	/* Opening the file with the questions */
@@ -335,76 +423,40 @@ int main(){
 		return errno;
 	}
 
-	/* Creation of a thread that will keep creating players */
-	int err;
-	err = pthread_create(&(tid[0]), NULL, &waitForClients, NULL);
+	/* Creation of the first thread that will handle the game */
+	int errG[50];
 	
-	if(err != 0){
-		printf("\nCan't create thread :[%s]", strerror(err));
+	for(i = 0; i < 50; i++){
+		current_game = i;
+
+		//void arg = (void)current_game;
+		errG[i] = pthread_create(&(tid[i]), NULL, &game, &current_game);
+
+		if(errG[i] != 0){
+			printf("\nCan't create thread :[%s]", strerror(errG[i]));
+		}
+		else{
+			printf("\nThread created successfully %d\n", i);
+		}
+
+		/*
+			Waiting for the signal that last game has begun,
+			next one can begin looking for players
+		*/
+		while(semaphore == -1);
+
+		semaphore = -1;
 	}
-	else{
-		printf("\n Thread created successfully\n");
-	}
 
-	printf("Waiting for at least two players\n");
-
-	while(players.used < 2);	// The server will wait until there is at least two players
-
-	sleep(5);	// After two players have joined, we give 5 seconds to the rest of the players to join
-
-	// Players that are here since the beginning of the game will participate in 15 rounds
-	for(i = 0; i < 15; i++){
-		for(j = 0; j < players.used; j++){
-			// We send a random question to the player
-			if(write(players.array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used])) <= 0){
-				perror("[client]Error in write() to server.\n");
-				return errno;
-			}
-
-			// We receive the points obteined with this question
-			if(read(players.array[j].id, &add_points, sizeof(int)) <= 0){
-				perror("[client]Error in read() from server.\n");
-				return errno;
-			}
-
-			players.array[j].score += add_points;
-
-			if(i < 14){
-				int not_finish = 1;
-
-				// We send the signal of not finishing the game
-				if(write(players.array[j].id, &not_finish, sizeof(int)) <= 0){
-					perror("[client]Error in write() to server.\n");
-					return errno;
-				}
-			}
-			else{
-				int finish = -1;
-
-				// The game finishes
-				if(write(players.array[j].id, &finish, sizeof(int)) <= 0){
-					perror("[client]Error in write() to server.\n");
-					return errno;
-				}
-			}	
+	for(j = 0; j < 50; j++){
+		for(i = 0; i < players[j].used; i++){
+			close(players[j].array[i].id);
 		}
 	}
 
-	for(i = 0; i < players.used; i++){
-		sprintf(result, "%dº - %s - %d points\n", i, players.array[i].username, players.array[i].score);
+	for(i = 0; i < 50; i++){
+		freeArray(&players[i]);
 	}
 
-	for(i = 0; i < players.used; i++){
-		if(write(players.array[j].id, result, sizeof(result)) <= 0){
-			perror("[client]Error in write() to server.\n");
-			return errno;
-		}
-	}
-
-	for(i = 0; i < players.used; i++){
-		close(players.array[i].id);
-	}
-
-	freeArray(&players);
 	freeArrayRound(&rounds);
 }
