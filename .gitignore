@@ -433,5 +433,7 @@ __pycache__/
 /.vscode
 QuizGameClient
 QuizGameServer
+client
+server
 
 # End of https://www.gitignore.io/api/c,macos,visualstudio
