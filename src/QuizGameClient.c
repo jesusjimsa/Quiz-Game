@@ -31,16 +31,12 @@ extern int errno;
 /* puerto de acceso al servidor */
 int port;
 
-struct Options{
-	char A[30];
-	char B[30];
-	char C[30];
-	char D[30];
-};
-
 struct Round{
 	char question[100];
-	struct Options options;
+	char A[50];
+	char B[50];
+	char C[50];
+	char D[50];
 	char correct_answer;
 };
 
@@ -51,7 +47,7 @@ struct Round{
 
 void printRound(struct Round ronda){
 	printf("%s\n", ronda.question);
-	printf("A. %s\tB. %s\nC. %s\tD. %s\n", ronda.options.A, ronda.options.B, ronda.options.C, ronda.options.D);
+	printf("A. %s\tB. %s\nC. %s\tD. %s\n", ronda.A, ronda.B, ronda.C, ronda.D);
 	printf("Which option is the right answer, A, B, C or D?\n");
 }
 

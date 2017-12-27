@@ -13,10 +13,6 @@
 */
 
 /**
- * @todo Fix parser
-*/
-
-/**
  * @todo Just the first player receives question, and just one time
  * the rest of the players and rounds don't work
 */
@@ -49,16 +45,12 @@ struct Player{
 	char username[50];	// Username
 };
 
-struct Options{
+struct Round{
+	char question[100];
 	char A[50];
 	char B[50];
 	char C[50];
 	char D[50];
-};
-
-struct Round{
-	char question[100];
-	struct Options options;
 	char correct_answer;
 };
 
@@ -154,6 +146,7 @@ void waitForClients(int *current_game){
 		}
 
 		insertArray(&players[*current_game], aux);
+		printf("Player connected: %s\n", aux.username);
 	}
 }
 
@@ -298,48 +291,48 @@ void XMLParser(FILE *XML_questions){
 							int j = 12;
 
 							while(line[j] != '<' && line[j + 1] != '/'){
-								ronda.options.A[j - 12] = line[j];
+								ronda.A[j - 12] = line[j];
 
 								j++;
 							}
 
-							ronda.options.A[j - 12] = '\0';
+							ronda.A[j - 12] = '\0';
 						}
 						else{
 							if(!strcmp("\t\t\t<optionB>", lineOB)){
 								int j = 12;
 
 								while(line[j] != '<' && line[j + 1] != '/'){
-									ronda.options.B[j - 12] = line[j];
+									ronda.B[j - 12] = line[j];
 
 									j++;
 								}
 
-								ronda.options.B[j - 12] = '\0';
+								ronda.B[j - 12] = '\0';
 							}
 							else{
 								if(!strcmp("\t\t\t<optionC>", lineOC)){
 									int j = 12;
 
 									while(line[j] != '<' && line[j + 1] != '/'){
-										ronda.options.C[j - 12] = line[j];
+										ronda.C[j - 12] = line[j];
 
 										j++;
 									}
 
-									ronda.options.C[j - 12] = '\0';
+									ronda.C[j - 12] = '\0';
 								}
 								else{
 									if(!strcmp("\t\t\t<optionD>", lineOD)){
 										int j = 12;
 
 										while(line[j] != '<' && line[j + 1] != '/'){
-											ronda.options.D[j - 12] = line[j];
+											ronda.D[j - 12] = line[j];
 
 											j++;
 										}
 
-										ronda.options.D[j - 12] = '\0';
+										ronda.D[j - 12] = '\0';
 									}
 									else{
 										if(!strcmp("\t\t</options>\n", line)){
