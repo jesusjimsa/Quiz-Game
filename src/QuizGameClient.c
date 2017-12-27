@@ -132,19 +132,9 @@ int main(int argc, char *argv[]){
 		}
 
 		printRound(ronda);
-		read(0, &answer, 1);
+		scanf("%s", &answer);
 
-		// if(write (sd, &answer, 1) <= 0){
-		// 	perror("[client]Error al escribir en el servidor.\n");
-		// 	return errno;
-		// }
-
-		// if(read(sd, &result_round, sizeof(result_round)) < 0){
-		// 	perror ("[client]Error en read() del servidor.\n");
-		// 	return errno;
-		// }
-
-		points_obtained_in_round = printResult(ronda, strcmp(&answer, &ronda.correct_answer));
+		points_obtained_in_round = printResult(ronda, (answer == ronda.correct_answer));
 
 		if(write(sd, &points_obtained_in_round, sizeof(int)) <= 0){
 			perror("[client]Error in write() to server.\n");
