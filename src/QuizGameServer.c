@@ -147,6 +147,8 @@ void waitForClients(int *current_game){
 
 		insertArray(&players[*current_game], aux);
 		printf("Player connected: %s\n", aux.username);
+		memset(aux.username, 0, sizeof(aux.username));
+		//printf("%zu\n", players[*current_game].used);
 	}
 }
 
@@ -178,7 +180,7 @@ void game(int *current_game){
 	semaphore = 1;	// The next game can begin
 
 	// Players that are here since the beginning of the game will participate in 15 rounds
-	for(i = 0; i < 15; i++){
+	for(i = 0; i < 10; i++){
 		for(j = 0; j < players[*current_game].used; j++){
 			// We send a random question to the player
 			if(send(players[*current_game].array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used]), 0) <= 0){
@@ -209,7 +211,7 @@ void game(int *current_game){
 			}
 			else{
 				int finish = -1;
-
+				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ERROR AQUÍ
 				// The game finishes
 				if(send(players[*current_game].array[j].id, &finish, sizeof(int), 0) <= 0){
 					perror("[client]Error in send() to server.\n");
@@ -376,8 +378,8 @@ int main(){
 	initArrayRound(&rounds, 2);
 
 	/* Opening the file with the questions */
-	if(!(XML_questions = fopen("Q&A.xml", "r"))){
-		perror("[server]Error opening file with questions\n");
+	if(!(XML_questions = fopen("/Users/jesusjimsa/Dropbox/Documentos/Universidad/3 - Primer cuatrimestre/Computer Networks/Teoría/Ejercicios/Quiz-Game/data/Q&A.xml", "r"))){
+		perror("[server]Error opening file with questionsn");
 		return errno;
 	}
 
