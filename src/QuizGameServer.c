@@ -379,7 +379,7 @@ int main(){
 
 	/* Opening the file with the questions */
 	if(!(XML_questions = fopen("/Users/jesusjimsa/Dropbox/Documentos/Universidad/3 - Primer cuatrimestre/Computer Networks/Teoría/Ejercicios/Quiz-Game/data/Q&A.xml", "r"))){
-		perror("[server]Error opening file with questionsn");
+		perror("[server]Error opening file with questions\n");
 		return errno;
 	}
 
