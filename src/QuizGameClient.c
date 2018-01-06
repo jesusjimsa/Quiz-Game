@@ -90,7 +90,7 @@ int main(int argc, char *argv[]){
 	printf("Welcome to Quiz Game.\n");
 	printf("What is your name? (It will be used to identify you during the game): ");
 	fflush(stdout);
-	read(0, &username, 100);
+	recv(0, &username, 100, 0);
 
 	/* creación del socket */
 	if((sd = socket(AF_INET, SOCK_STREAM, 0)) == -1){
@@ -122,31 +122,46 @@ int main(int argc, char *argv[]){
 
 	/* The game itself, questions and answers */
 	while(finish != -1){
-		if(read(sd, &ronda, sizeof(ronda)) < 0){
-			perror ("[client]Error in read() from server.\n");
+		if(recv(sd, &ronda, sizeof(ronda), 0) < 0){
+			perror ("[client]Error in recv() from server.\n");
 			return errno;
 		}
 
 		printRound(ronda);
 		scanf("%s", &answer);
 
+		switch(answer){
+			case 'a':
+				answer = 'A';
+				break;
+			case 'b':
+				answer = 'B';
+				break;
+			case 'c':
+				answer = 'C';
+				break;
+			case 'd':
+				answer = 'D';
+				break;
+		}
+
 		points_obtained_in_round = printResult(ronda, (answer == ronda.correct_answer));
 
-		if(write(sd, &points_obtained_in_round, sizeof(int)) <= 0){
-			perror("[client]Error in write() to server.\n");
+		if(send(sd, &points_obtained_in_round, sizeof(int), 0) <= 0){
+			perror("[client]Error in send() to server.\n");
 			return errno;
 		}
 
-		if(read(sd, &finish, sizeof(finish)) < 0){
-			perror ("[client]Error in read() from server.\n");
+		if(recv(sd, &finish, sizeof(finish), 0) < 0){
+			perror ("[client]Error in recv() from server.\n");
 			return errno;
 		}
 	}
 
 	/* The game is over, now we receive the scores and finish the game */
 
-	if(read(sd, &result, sizeof(result)) < 0){
-		perror("[client]Error in read() from server.\n");
+	if(recv(sd, &result, sizeof(result), 0) < 0){
+		perror("[client]Error in recv() from server.\n");
 		return errno;
 	}
 

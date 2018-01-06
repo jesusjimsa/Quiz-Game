@@ -139,8 +139,8 @@ void waitForClients(int *current_game){
 			continue;
 		}
 
-		if(read(aux.id, &aux.username, sizeof(aux.username)) <= 0){
-			perror("[server]Error in read() from client.\n");
+		if(recv(aux.id, &aux.username, sizeof(aux.username), 0) <= 0){
+			perror("[server]Error in recv() from client.\n");
 			close(aux.id);	/* cerramos la conexión con el cliente */
 			continue;		/* seguimos escuchando */
 		}
@@ -181,16 +181,16 @@ void game(int *current_game){
 	for(i = 0; i < 15; i++){
 		for(j = 0; j < players[*current_game].used; j++){
 			// We send a random question to the player
-			if(write(players[*current_game].array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used])) <= 0){
-				perror("[client]Error in write() to server.\n");
+			if(send(players[*current_game].array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used]), 0) <= 0){
+				perror("[client]Error in send() to server.\n");
 				break;
 			}
 			
 			printf("Question sent to player %d in game %d\n", j, *current_game);
 
 			// We receive the points obtained with this question
-			if(read(players[*current_game].array[j].id, &add_points, sizeof(int)) <= 0){
-				perror("[client]Error in read() from server.\n");
+			if(recv(players[*current_game].array[j].id, &add_points, sizeof(int), 0) <= 0){
+				perror("[client]Error in recv() from server.\n");
 				break;
 			}
 
@@ -202,8 +202,8 @@ void game(int *current_game){
 				int not_finish = 1;
 
 				// We send the signal of not finishing the game
-				if(write(players[*current_game].array[j].id, &not_finish, sizeof(int)) <= 0){
-					perror("[client]Error in write() to server.\n");
+				if(send(players[*current_game].array[j].id, &not_finish, sizeof(int), 0) <= 0){
+					perror("[client]Error in send() to server.\n");
 					break;
 				}
 			}
@@ -211,8 +211,8 @@ void game(int *current_game){
 				int finish = -1;
 
 				// The game finishes
-				if(write(players[*current_game].array[j].id, &finish, sizeof(int)) <= 0){
-					perror("[client]Error in write() to server.\n");
+				if(send(players[*current_game].array[j].id, &finish, sizeof(int), 0) <= 0){
+					perror("[client]Error in send() to server.\n");
 					break;
 				}
 			}
@@ -224,8 +224,8 @@ void game(int *current_game){
 	}
 
 	for(i = 0; i < players[*current_game].used; i++){
-		if(write(players[*current_game].array[j].id, result, sizeof(result)) <= 0){
-			perror("[client]Error in write() to server.\n");
+		if(send(players[*current_game].array[j].id, result, sizeof(result), 0) <= 0){
+			perror("[client]Error in send() to server.\n");
 			break;
 		}
 	}
@@ -452,4 +452,5 @@ int main(){
 	}
 
 	freeArrayRound(&rounds);
+	close(sd);
 }
