@@ -25,6 +25,8 @@
 #define true (1 == 1)
 #define false (!true)
 
+/* Normalmente el puerto es el 2024 y la dirección es 127.0.0.1 */
+
 /* el código de error devuelto por ciertas llamadas */
 extern int errno;
 
@@ -77,6 +79,7 @@ int main(int argc, char *argv[]){
 	//struct ResultRound result_round;
 	int points_obtained_in_round;
 	int finish = 1;	// When the server sends a -1 value to this variable, the game finishes
+	int i, username_size;
 
 	/* ¿Están todos los argumentos en la línea de comandos? */
 	if(argc != 3){
@@ -87,10 +90,18 @@ int main(int argc, char *argv[]){
 	/* armamos el puerto */
 	port = atoi(argv[2]);
 
+	for(i = 0; i < 100; i++){
+		username[i] = '#';
+	}
+
 	printf("Welcome to Quiz Game.\n");
 	printf("What is your name? (It will be used to identify you during the game): ");
 	fflush(stdout);
-	recv(0, &username, 100, 0);
+	read(0, &username, 100);
+
+	for(i = 0; username[i] != '#' && i < 100; i++);
+
+	username_size = i - 1;
 
 	/* creación del socket */
 	if((sd = socket(AF_INET, SOCK_STREAM, 0)) == -1){
@@ -115,7 +126,7 @@ int main(int argc, char *argv[]){
     }
 
 	/* enviamos el nombre de usuario al servidor para ser añadidos a la partida */
-	if(write (sd, &username, sizeof(username)) <= 0){
+	if(send(sd, username, username_size, 0) <= 0){
 		perror("[client]Error writing on the server.\n");
 		return errno;
     }
