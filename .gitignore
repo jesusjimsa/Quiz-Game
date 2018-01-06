@@ -435,5 +435,6 @@ QuizGameClient
 QuizGameServer
 client
 server
+prueba.c
 
 # End of https://www.gitignore.io/api/c,macos,visualstudio
