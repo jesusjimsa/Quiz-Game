@@ -58,12 +58,12 @@ int printResult(struct Round ronda, int answer){
 	printf("The right answer was: %s\n", &ronda.correct_answer);
 	
 	if(answer == true){
-		printf("You get 10 points in this round\n");
+		printf("\nYou get 10 points in this round\n");
 		printf("\n–––––––––––––––––––––––––––––––––––––––––––––––\n\n");
 		points_obtained = 10;
 	}
 	else{
-		printf("You lose 2 points in this round\n");
+		printf("\nYou lose 2 points in this round\n");
 		printf("\n–––––––––––––––––––––––––––––––––––––––––––––––\n\n");
 		points_obtained = -2;
 	}
@@ -100,6 +100,7 @@ int main(int argc, char *argv[]){
 	printf("What is your name? (It will be used to identify you during the game): ");
 	fflush(stdout);
 	read(0, &username, 100);
+	printf("\n–––––––––––––––––––––––––––––––––––––––––––––––\n\n");
 
 	for(i = 0; username[i] != '#' && i < 100; i++);
 
@@ -173,7 +174,7 @@ int main(int argc, char *argv[]){
 
 	/* The game is over, now we receive the scores and finish the game */
 
-	if(recv(sd, &result, sizeof(result), 0) < 0){
+	if(recv(sd, &result, strlen(result), 0) < 0){
 		perror("[client]Error in recv() from server.\n");
 		return errno;
 	}
