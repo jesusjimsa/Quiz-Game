@@ -157,6 +157,7 @@ void game(int *current_game){
 	int i, j;
 	int add_points;
 	char result[51200];
+	char empty = '\0';
 
 	printf("Waiting for at least two players\n");
 
@@ -178,7 +179,7 @@ void game(int *current_game){
 			To fix this, I print something, but it is the empty character '\0',
 			then, nothing is actually printed, but it works.
 		*/
-		printf("\0");
+		printf("%c", empty);
 	}
 
 	printf("Now, we will wait ten seconds to wait for more players\n");
@@ -212,7 +213,7 @@ void game(int *current_game){
 
 			players[*current_game].array[j].score += add_points;
 
-			if(i < 14){
+			if(i < 2){
 				int not_finish = 1;
 
 				// We send the signal of not finishing the game
@@ -223,8 +224,7 @@ void game(int *current_game){
 			}
 			else{
 				int finish = -1;
-				////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ERROR AQUÍ
-				perror("jejejejejeje\n");
+
 				// The game finishes
 				if(send(players[*current_game].array[j].id, &finish, sizeof(int), 0) <= 0){
 					perror("[client]Error in send() to server.\n");
@@ -239,7 +239,7 @@ void game(int *current_game){
 	}
 
 	for(i = 0; i < players[*current_game].used; i++){
-		if(send(players[*current_game].array[j].id, result, sizeof(result), 0) <= 0){
+		if(send(players[*current_game].array[i].id, result, sizeof(result), 0) <= 0){
 			perror("[client]Error in send() to server.\n");
 			break;
 		}
