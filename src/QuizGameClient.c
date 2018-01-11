@@ -59,11 +59,13 @@ int printResult(struct Round ronda, int answer){
 	
 	if(answer == true){
 		printf("You get 10 points in this round\n");
+		printf("\n–––––––––––––––––––––––––––––––––––––––––––––––\n\n");
 		points_obtained = 10;
 	}
 	else{
-		printf("You get no points in this round\n");
-		points_obtained = 0;
+		printf("You lose 2 points in this round\n");
+		printf("\n–––––––––––––––––––––––––––––––––––––––––––––––\n\n");
+		points_obtained = -2;
 	}
 
 	return points_obtained;
