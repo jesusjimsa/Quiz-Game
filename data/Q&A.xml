@@ -86,4 +86,502 @@
 		</options>
 		<answer>B</answer>
 	</round>
+
+	<round>
+		<question>Which of these kills its victims by constriction?</question>
+		<options>
+			<optionA>Andalucia</optionA>
+			<optionB>Anaconda</optionB>
+			<optionC>Andypandy</optionC>
+			<optionD>Annerobinson</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>Which of these might be used in underwater naval operations?</question>
+		<options>
+			<optionA>Frogmen</optionA>
+			<optionB>Newtmen</optionB>
+			<optionC>Toadmen</optionC>
+			<optionD>Tadpolemen</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>In the UK, VAT stands for value-added ...?</question>
+		<options>
+			<optionA>Transaction</optionA>
+			<optionB>Total</optionB>
+			<optionC>Tax</optionC>
+			<optionD>Trauma</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>What might an electrician lay?</question>
+		<options>
+			<optionA>Tables</optionA>
+			<optionB>Gables</optionB>
+			<optionC>Cables</optionC>
+			<optionD>Stables</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>What would a 'tattie picker' harvest?</question>
+		<options>
+			<optionA>Raspberries</optionA>
+			<optionB>Corn</optionB>
+			<optionC>Potatoes</optionC>
+			<optionD>Apples</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>How is a play on words commonly described?</question>
+		<options>
+			<optionA>Pan</optionA>
+			<optionB>Pin</optionB>
+			<optionC>Pen</optionC>
+			<optionD>Pun</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>Which colour is used as a term to describe an illegal market in rare goods?</question>
+		<options>
+			<optionA>Blue</optionA>
+			<optionB>Red</optionB>
+			<optionC>Black</optionC>
+			<optionD>White</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>Which character was first played by Arnold Schwarzenegger in a 1984 film?</question>
+		<options>
+			<optionA>The Demonstrator</optionA>
+			<optionB>The Instigator</optionB>
+			<optionC>The Investigator</optionC>
+			<optionD>The Terminator</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>Which of these would a film actor like to receive?</question>
+		<options>
+			<optionA>Oliver</optionA>
+			<optionB>Oscar</optionB>
+			<optionC>Oliphant</optionC>
+			<optionD>Osbert</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>In which country would you expect to be greeted with the word 'bonjour'?</question>
+		<options>
+			<optionA>Italy</optionA>
+			<optionB>France</optionB>
+			<optionC>Spain</optionC>
+			<optionD>Wales</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>What name is given to the person who traditionally attends the groom on his wedding day?</question>
+		<options>
+			<optionA>Best man</optionA>
+			<optionB>Top man</optionB>
+			<optionC>Old man</optionC>
+			<optionD>Poor man</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>Which word follows 'North' and 'South' to give the names of two continents?</question>
+		<options>
+			<optionA>Africa</optionA>
+			<optionB>America</optionB>
+			<optionC>Asia</optionC>
+			<optionD>Australia</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>Which country is not an island?</question>
+		<options>
+			<optionA>Madagascar</optionA>
+			<optionB>Cuba</optionB>
+			<optionC>Germany</optionC>
+			<optionD>Jamaica</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>Which is not the name of an English county?</question>
+		<options>
+			<optionA>Lancashire</optionA>
+			<optionB>Leicestershire</optionB>
+			<optionC>Liverpoolshire</optionC>
+			<optionD>Lincolnshire</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>Which of these is a fashionable district of London?</question>
+		<options>
+			<optionA>Bulgaria</optionA>
+			<optionB>Belgravia</optionB>
+			<optionC>Belgrade</optionC>
+			<optionD>Belgium</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>What name is given to a playing card with a single symbol on it?</question>
+		<options>
+			<optionA>Whizz</optionA>
+			<optionB>Hotshot</optionB>
+			<optionC>Ace</optionC>
+			<optionD>Star</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>What would you normally do with a beret?</question>
+		<options>
+			<optionA>Eat it</optionA>
+			<optionB>Play it</optionB>
+			<optionC>Sit on it</optionC>
+			<optionD>Wear it</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>Which of these is a tool for shaping and smoothing wood?</question>
+		<options>
+			<optionA>Train</optionA>
+			<optionB>Plane</optionB>
+			<optionC>Car</optionC>
+			<optionD>Bike</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>What do the Americans call what we call sweets?</question>
+		<options>
+			<optionA>Randy</optionA>
+			<optionB>Dandy</optionB>
+			<optionC>Sandy</optionC>
+			<optionD>Candy</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>Which of these is a spicy, Cajun chicken or seafood dish?</question>
+		<options>
+			<optionA>Gumbo</optionA>
+			<optionB>Dumbo</optionB>
+			<optionC>Bimbo</optionC>
+			<optionD>Rambo</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>What would you expect to see at the London Aquarium?</question>
+		<options>
+			<optionA>Flowers</optionA>
+			<optionB>Trees</optionB>
+			<optionC>Steam rollers</optionC>
+			<optionD>Fish</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>People who are in a similar unfavourable situation are said to be 'all in the same ...'?</question>
+		<options>
+			<optionA>Car</optionA>
+			<optionB>Plane</optionB>
+			<optionC>Boat</optionC>
+			<optionD>Tube</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>According to the old adage, how many lives does a cat have?</question>
+		<options>
+			<optionA>Five</optionA>
+			<optionB>Seven</optionB>
+			<optionC>Nine</optionC>
+			<optionD>Ten</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>Which of these is a keyboard instrument?</question>
+		<options>
+			<optionA>Harpsichord</optionA>
+			<optionB>Ripcord</optionB>
+			<optionC>Pyjama cor</optionC>
+			<optionD>Sashcord</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>The former punk singer John Lydon was known on stage as Johnny ...?</question>
+		<options>
+			<optionA>Horrid</optionA>
+			<optionB>Rotten</optionB>
+			<optionC>Nasty</optionC>
+			<optionD>Hateful</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>The Nativity is the story of whose birth?</question>
+		<options>
+			<optionA>Jesus Christ</optionA>
+			<optionB>Elvis Presley</optionB>
+			<optionC>Winston Churchill</optionC>
+			<optionD>John F. Kennedy</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>How many moons orbit the Earth?</question>
+		<options>
+			<optionA>One</optionA>
+			<optionB>Two</optionB>
+			<optionC>Three</optionC>
+			<optionD>Four</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>By what abbreviation is a compact disc commonly known?</question>
+		<options>
+			<optionA>CD</optionA>
+			<optionB>COD</optionB>
+			<optionC>CDIS</optionC>
+			<optionD>COMPD</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>Which country shares a land border with the UK?</question>
+		<options>
+			<optionA>Portugal</optionA>
+			<optionB>Libya</optionB>
+			<optionC>Vietnam</optionC>
+			<optionD>Ireland</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>The star sign Aquarius is also known as what?</question>
+		<options>
+			<optionA>The Water-carrier</optionA>
+			<optionB>The Food-carrier</optionB>
+			<optionC>The Hod-carrier</optionC>
+			<optionD>The Bag-carrier</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>Which of these would be of most use if you wanted to play poker?</question>
+		<options>
+			<optionA>Bat and ball</optionA>
+			<optionB>Pack of cards</optionB>
+			<optionC>Swimming trunks</optionC>
+			<optionD>Horse</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>What are said to be 'down' when things are not going well?</question>
+		<options>
+			<optionA>Egg</optionA>
+			<optionB>Bacon</optionB>
+			<optionC>Chips</optionC>
+			<optionD>Beans</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>What name is given to a mound or ridge of windblown sand?</question>
+		<options>
+			<optionA>Drone</optionA>
+			<optionB>Dude</optionB>
+			<optionC>Dime</optionC>
+			<optionD>Dune</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>Which part of the human body encases many of the vital organs such as the heart, lungs and liver?</question>
+		<options>
+			<optionA>Head</optionA>
+			<optionB>Legs</optionB>
+			<optionC>Arms</optionC>
+			<optionD>Torso</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>Which of these is a weight category in professional boxing?</question>
+		<options>
+			<optionA>Welterweight</optionA>
+			<optionB>Swelterweight</optionB>
+			<optionC>Slaughterweight</optionC>
+			<optionD>Daughterweight</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>Who has the authority to change a ball during a football match?</question>
+		<options>
+			<optionA>Sky Sports</optionA>
+			<optionB>The home team</optionB>
+			<optionC>Alex Ferguson</optionC>
+			<optionD>The referee</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>If you are moving downhill over snow with a long runner attached to each foot, what are you doing?</question>
+		<options>
+			<optionA>Swimming</optionA>
+			<optionB>Skiing</optionB>
+			<optionC>Skateboarding</optionC>
+			<optionD>Showjumping</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>What sort of animal is Jess, who accompanies the TV character Postman Pat?</question>
+		<options>
+			<optionA>Dog</optionA>
+			<optionB>Horse</optionB>
+			<optionC>Cat</optionC>
+			<optionD>Mouse</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>A particular hazard for motorists is black ...?</question>
+		<options>
+			<optionA>Pudding</optionA>
+			<optionB>Ice</optionB>
+			<optionC>Holes</optionC>
+			<optionD>Mascara</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<round>
+		<question>Which 'Dallas' spin-off saw Gary Ewing arrive in a small Californian town?</question>
+		<options>
+			<optionA>Knots Patio</optionA>
+			<optionB>Knots Garage</optionB>
+			<optionC>Knots Porch</optionC>
+			<optionD>Knots Landing</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>Which is a US-made soap opera?</question>
+		<options>
+			<optionA>Johnson's Mere</optionA>
+			<optionB>Thompson's Pond</optionB>
+			<optionC>Dawson's Creek</optionC>
+			<optionD>Madison's Lake</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>Which of these is a discipline in both men's and women's gymnastics?</question>
+		<options>
+			<optionA>Floor exercises</optionA>
+			<optionB>Wall exercises</optionB>
+			<optionC>Ceiling exercises</optionC>
+			<optionD>Roof exercises</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+
+	<round>
+		<question>Which of the following do bowlers aim to hit during a game of cricket?</question>
+		<options>
+			<optionA>Posts</optionA>
+			<optionB>Hoop</optionB>
+			<optionC>Net</optionC>
+			<optionD>Stumps</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+
+	<round>
+		<question>Which of these applies to the shape of a soccer ball?</question>
+		<options>
+			<optionA>Conical</optionA>
+			<optionB>Cylindrical</optionB>
+			<optionC>Spherical</optionC>
+			<optionD>Oval</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<round>
+		<question>Which novel by Charles Dickens was made into a film in 2002?</question>
+		<options>
+			<optionA>Danny Dimeby</optionA>
+			<optionB>Nicholas Nickleby</optionB>
+			<optionC>Quentin Quarterby</optionC>
+			<optionD>Donald Dollarby</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+
+	<!-- Next question: #0051 -->
+	<!-- https://www.gamefaqs.com/gba/919785-who-wants-to-be-a-millionaire-2nd-edition/faqs/40044 -->
 </quiz>
