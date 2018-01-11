@@ -156,9 +156,11 @@ void game(int *current_game){
 	pthread_t searching;
 	int i, j;
 	int add_points;
-	char result[51200];
+	char *result = "\0";
+	char *resultUntilNow = "\0";
+	char *newResult = "\0";
 	char empty = '\0';
-
+	
 	printf("Waiting for at least two players\n");
 
 	/* Creation of a thread that will keep creating players */
@@ -235,15 +237,49 @@ void game(int *current_game){
 	}
 
 	for(i = 0; i < players[*current_game].used; i++){
-		sprintf(result, "%dº - %s - %d points\n", i, players[*current_game].array[i].username, players[*current_game].array[i].score);
-	}
+		if((newResult = malloc(strlen(players[*current_game].array[i].username) + 3 + 4 + 17 + 1)) != NULL){
+			newResult[0] = '\0';
+			sprintf(newResult, "%dº –– %s –– %d points\n", i + 1, players[*current_game].array[i].username, players[*current_game].array[i].score);
+		}
+		else{
+			perror("Malloc failed!\n");
+			exit(0);
+		}
+		
+		if ((result = malloc(strlen(resultUntilNow) + strlen(newResult) + 1)) != NULL){
+			result[0] = '\0';	// Ensures the memory is an empty string
+			
+			strcat(result, resultUntilNow);
+			strcat(result, newResult);
 
+			if((resultUntilNow = malloc(strlen(result) + 1)) != NULL){
+				resultUntilNow[0] = '\0';
+
+				strcpy(resultUntilNow, result);
+				printf("%s\n", result);
+			}
+			else{
+				perror("Malloc failed!\n");
+				exit(0);
+			}
+			
+		}
+		else{
+			perror("Malloc failed!\n");
+			exit(0);
+		}
+	}
+	
 	for(i = 0; i < players[*current_game].used; i++){
-		if(send(players[*current_game].array[i].id, result, sizeof(result), 0) <= 0){
+		if(send(players[*current_game].array[i].id, result, strlen(result), 0) <= 0){
 			perror("[client]Error in send() to server.\n");
 			break;
 		}
 	}
+
+	free(result);
+	free(resultUntilNow);
+	free(newResult);
 }
 
 void XMLParser(FILE *XML_questions){
