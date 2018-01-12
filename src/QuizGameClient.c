@@ -17,6 +17,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -82,6 +83,8 @@ int main(int argc, char *argv[]){
 	int points_obtained_in_round;
 	int finish = 1;	// When the server sends a -1 value to this variable, the game finishes
 	int i, username_size;
+	const int timeToAnswer = 5;
+	time_t timeBefore, timeAfter;
 
 	result[0] = '\0';
 
@@ -102,6 +105,7 @@ int main(int argc, char *argv[]){
 	printf("What is your name? (It will be used to identify you during the game): ");
 	fflush(stdout);
 	read(0, &username, 100);
+	printf("You have 5 seconds to answer each question.\nBe fast!\n");
 	printf("\n–––––––––––––––––––––––––––––––––––––––––––––––\n\n");
 
 	for(i = 0; username[i] != '#' && i < 100; i++);
@@ -144,7 +148,14 @@ int main(int argc, char *argv[]){
 		}
 
 		printRound(ronda);
+
+		time(&timeBefore);
 		scanf("%s", &answer);
+		time(&timeAfter);
+
+		if(difftime(timeBefore, timeAfter) > timeToAnswer){
+			answer = 'X';	// Not a valid answer
+		}
 
 		switch(answer){
 			case 'a':
