@@ -156,6 +156,7 @@ void game(int *current_game){
 	pthread_t searching;
 	int i, j;
 	int add_points;
+	const int numberOfRounds = 5;
 	char *result = "\0";
 	char *resultUntilNow = "\0";
 	char *newResult = "\0";
@@ -195,15 +196,13 @@ void game(int *current_game){
 	semaphore = 1;	// The next game can begin
 
 	// Players that are here since the beginning of the game will participate in 15 rounds
-	for(i = 0; i < 3; i++){
+	for(i = 0; i < numberOfRounds; i++){
 		for(j = 0; j < players[*current_game].used; j++){
 			// We send a random question to the player
 			if(send(players[*current_game].array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used]), 0) <= 0){
 				perror("[client]Error in send() to server.\n");
 				break;
-			}
-			
-			printf("Question sent to player %d in game %d\n", j, *current_game);
+			}			
 		}
 
 		for(j = 0; j < players[*current_game].used; j++){
@@ -213,11 +212,9 @@ void game(int *current_game){
 				break;
 			}
 
-			printf("Points added to player %d in game %d\n", j, *current_game);
-
 			players[*current_game].array[j].score += add_points;
 
-			if(i < 2){
+			if(i < (numberOfRounds - 1)){
 				int not_finish = 1;
 
 				// We send the signal of not finishing the game
@@ -239,8 +236,9 @@ void game(int *current_game){
 	}
 
 	for(i = 0; i < players[*current_game].used; i++){
-		if((newResult = malloc(strlen(players[*current_game].array[i].username) + 3 + 4 + 17 + 1)) != NULL){
+		if((newResult = malloc((strlen(players[*current_game].array[i].username) + 3 + 4 + 17 + 1) * 2)) != NULL){
 			newResult[0] = '\0';
+
 			sprintf(newResult, "%dº –– %s –– %d points\n", i + 1, players[*current_game].array[i].username, players[*current_game].array[i].score);
 		}
 		else{
@@ -248,17 +246,16 @@ void game(int *current_game){
 			exit(0);
 		}
 		
-		if ((result = malloc(strlen(resultUntilNow) + strlen(newResult) + 1)) != NULL){
+		if ((result = malloc((strlen(resultUntilNow) + strlen(newResult) + 1) * 2)) != NULL){
 			result[0] = '\0';	// Ensures the memory is an empty string
 			
 			strcat(result, resultUntilNow);
 			strcat(result, newResult);
 
-			if((resultUntilNow = malloc(strlen(result) + 1)) != NULL){
+			if((resultUntilNow = malloc((strlen(result) + 1) * 2)) != NULL){
 				resultUntilNow[0] = '\0';
 
 				strcpy(resultUntilNow, result);
-				printf("%s\n", result);
 			}
 			else{
 				perror("Malloc failed!\n");
@@ -271,7 +268,7 @@ void game(int *current_game){
 			exit(0);
 		}
 	}
-	
+
 	for(i = 0; i < players[*current_game].used; i++){
 		if(send(players[*current_game].array[i].id, result, strlen(result), 0) <= 0){
 			perror("[client]Error in send() to server.\n");

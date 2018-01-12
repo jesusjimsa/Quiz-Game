@@ -83,6 +83,8 @@ int main(int argc, char *argv[]){
 	int finish = 1;	// When the server sends a -1 value to this variable, the game finishes
 	int i, username_size;
 
+	result[0] = '\0';
+
 	/* ¿Están todos los argumentos en la línea de comandos? */
 	if(argc != 3){
       printf("Sintax: %s <server_name> <port>\n", argv[0]);
@@ -174,7 +176,7 @@ int main(int argc, char *argv[]){
 
 	/* The game is over, now we receive the scores and finish the game */
 
-	if(recv(sd, &result, strlen(result), 0) < 0){
+	if(recv(sd, &result, sizeof(result), 0) < 0){
 		perror("[client]Error in recv() from server.\n");
 		return errno;
 	}
