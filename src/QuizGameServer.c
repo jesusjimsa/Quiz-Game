@@ -158,7 +158,7 @@ void game(int *current_game){
 	int i, j;
 	int add_points;
 	int current = *current_game;
-	const int numberOfRounds = 5;
+	const int numberOfRounds = 2;
 	char *result = "\0";
 	char *resultUntilNow = "\0";
 	char *newResult = "\0";
@@ -182,7 +182,6 @@ void game(int *current_game){
 		*/
 		printf("%c", EMPTY);
 	}
-	printf("hmm\n");
 
 	printf("Now, we will wait ten seconds to wait for more players\n");
 	sleep(5);	// After two players have joined, we give 10 seconds to the rest of the players to join in time
@@ -227,7 +226,7 @@ void game(int *current_game){
 
 				// The game finishes
 				if(send(players[current].array[j].id, &finish, sizeof(int), 0) <= 0){
-					perror("[client]Error in send() to server.\n");
+					perror("[server]Error in send() to client.\n");
 					break;
 				}
 			}
@@ -235,10 +234,10 @@ void game(int *current_game){
 	}
 
 	for(i = 0; i < players[current].used; i++){
-		if((newResult = malloc((strlen(players[current].array[i].username) + 3 + 4 + 17 + 1) * 2)) != NULL){
+		if((newResult = malloc((strlen(players[current].array[i].username) + 25) * 2)) != NULL){
 			newResult[0] = '\0';
 
-			sprintf(newResult, "%dº –– %s –– %d points\n", i + 1, players[current].array[i].username, players[current].array[i].score);
+			sprintf(newResult, "%s –– %d points\n", i + 1, players[current].array[i].username, players[current].array[i].score);
 		}
 		else{
 			perror("Malloc failed!\n");
