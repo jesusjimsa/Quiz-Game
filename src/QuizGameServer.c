@@ -121,6 +121,7 @@ struct sockaddr_in server;	// la estructura utilizada por el servidor
 struct sockaddr_in from;
 int sd;			//descriptor de socket
 int semaphore = -1;
+const char EMPTY = '\0';
 socklen_t length = sizeof(from);
 Array players[50];
 ArrayRound rounds;
@@ -156,11 +157,11 @@ void game(int *current_game){
 	pthread_t searching;
 	int i, j;
 	int add_points;
+	int current = *current_game;
 	const int numberOfRounds = 5;
 	char *result = "\0";
 	char *resultUntilNow = "\0";
 	char *newResult = "\0";
-	char empty = '\0';
 	
 	printf("Waiting for at least two players\n");
 
@@ -171,9 +172,6 @@ void game(int *current_game){
 	if(err != 0){
 		printf("\nCan't create thread :[%s]", strerror(err));
 	}
-	else{
-		printf("\nThread created successfully waiter %d\n", *current_game);
-	}
 
 	// The server will wait until there is at least two players
 	while(players[*current_game].used < 2){
@@ -182,8 +180,9 @@ void game(int *current_game){
 			To fix this, I print something, but it is the empty character '\0',
 			then, nothing is actually printed, but it works.
 		*/
-		printf("%c", empty);
+		printf("%c", EMPTY);
 	}
+	printf("hmm\n");
 
 	printf("Now, we will wait ten seconds to wait for more players\n");
 	sleep(5);	// After two players have joined, we give 10 seconds to the rest of the players to join in time
@@ -195,31 +194,31 @@ void game(int *current_game){
 
 	semaphore = 1;	// The next game can begin
 
-	// Players that are here since the beginning of the game will participate in 15 rounds
+	// Players that are here since the beginning of the game will participate in 10 rounds
 	for(i = 0; i < numberOfRounds; i++){
-		for(j = 0; j < players[*current_game].used; j++){
+		for(j = 0; j < players[current].used; j++){
 			// We send a random question to the player
-			if(send(players[*current_game].array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used]), 0) <= 0){
-				perror("[client]Error in send() to server.\n");
+			if(send(players[current].array[j].id, &rounds.array[rand() % rounds.used], sizeof(rounds.array[rand() % rounds.used]), 0) <= 0){
+				perror("[server]Error in send() to client.\n");
 				break;
 			}			
 		}
 
-		for(j = 0; j < players[*current_game].used; j++){
+		for(j = 0; j < players[current].used; j++){
 			// We receive the points obtained with this question
-			if(recv(players[*current_game].array[j].id, &add_points, sizeof(int), 0) <= 0){
-				perror("[client]Error in recv() from server.\n");
+			if(recv(players[current].array[j].id, &add_points, sizeof(int), 0) <= 0){
+				perror("[server]Error in recv() from client.\n");
 				break;
 			}
 
-			players[*current_game].array[j].score += add_points;
+			players[current].array[j].score += add_points;
 
 			if(i < (numberOfRounds - 1)){
 				int not_finish = 1;
 
 				// We send the signal of not finishing the game
-				if(send(players[*current_game].array[j].id, &not_finish, sizeof(int), 0) <= 0){
-					perror("[client]Error in send() to server.\n");
+				if(send(players[current].array[j].id, &not_finish, sizeof(int), 0) <= 0){
+					perror("[server]Error in send() to client.\n");
 					break;
 				}
 			}
@@ -227,7 +226,7 @@ void game(int *current_game){
 				int finish = -1;
 
 				// The game finishes
-				if(send(players[*current_game].array[j].id, &finish, sizeof(int), 0) <= 0){
+				if(send(players[current].array[j].id, &finish, sizeof(int), 0) <= 0){
 					perror("[client]Error in send() to server.\n");
 					break;
 				}
@@ -235,11 +234,11 @@ void game(int *current_game){
 		}
 	}
 
-	for(i = 0; i < players[*current_game].used; i++){
-		if((newResult = malloc((strlen(players[*current_game].array[i].username) + 3 + 4 + 17 + 1) * 2)) != NULL){
+	for(i = 0; i < players[current].used; i++){
+		if((newResult = malloc((strlen(players[current].array[i].username) + 3 + 4 + 17 + 1) * 2)) != NULL){
 			newResult[0] = '\0';
 
-			sprintf(newResult, "%dº –– %s –– %d points\n", i + 1, players[*current_game].array[i].username, players[*current_game].array[i].score);
+			sprintf(newResult, "%dº –– %s –– %d points\n", i + 1, players[current].array[i].username, players[current].array[i].score);
 		}
 		else{
 			perror("Malloc failed!\n");
@@ -269,8 +268,8 @@ void game(int *current_game){
 		}
 	}
 
-	for(i = 0; i < players[*current_game].used; i++){
-		if(send(players[*current_game].array[i].id, result, strlen(result), 0) <= 0){
+	for(i = 0; i < players[current].used; i++){
+		if(send(players[current].array[i].id, result, strlen(result), 0) <= 0){
 			perror("[client]Error in send() to server.\n");
 			break;
 		}
@@ -474,21 +473,21 @@ int main(){
 	for(i = 0; i < 50; i++){
 		current_game = i;
 
-		//void arg = (void)current_game;
 		errG[i] = pthread_create(&(tid[i]), NULL, &game, &current_game);
 
 		if(errG[i] != 0){
 			printf("\nCan't create thread :[%s]", strerror(errG[i]));
-		}
-		else{
-			printf("\nThread created successfully %d\n", i);
 		}
 
 		/*
 			Waiting for the signal that last game has begun,
 			next one can begin looking for players
 		*/
-		while(semaphore == -1);
+		while(semaphore == -1){
+			printf("%c", EMPTY);
+		}
+
+		sleep(2);
 
 		semaphore = -1;
 	}
