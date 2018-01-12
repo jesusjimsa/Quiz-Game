@@ -204,7 +204,9 @@ void game(int *current_game){
 			}
 			
 			printf("Question sent to player %d in game %d\n", j, *current_game);
+		}
 
+		for(j = 0; j < players[*current_game].used; j++){
 			// We receive the points obtained with this question
 			if(recv(players[*current_game].array[j].id, &add_points, sizeof(int), 0) <= 0){
 				perror("[client]Error in recv() from server.\n");
