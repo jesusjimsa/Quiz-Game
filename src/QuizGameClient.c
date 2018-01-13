@@ -83,7 +83,7 @@ int main(int argc, char *argv[]){
 	int points_obtained_in_round;
 	int finish = 1;	// When the server sends a -1 value to this variable, the game finishes
 	int i, username_size;
-	const int timeToAnswer = 5;
+	const int TIME_TO_ANSWER = 5;
 	time_t timeBefore, timeAfter;
 
 	result[0] = '\0';
@@ -153,8 +153,10 @@ int main(int argc, char *argv[]){
 		scanf("%s", &answer);
 		time(&timeAfter);
 
-		if(difftime(timeBefore, timeAfter) > timeToAnswer){
+		if(difftime(timeBefore, timeAfter) > TIME_TO_ANSWER){
 			answer = 'X';	// Not a valid answer
+			printf("Too slow answering")
+
 		}
 
 		switch(answer){
