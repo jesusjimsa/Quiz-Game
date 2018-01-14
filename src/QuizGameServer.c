@@ -149,7 +149,6 @@ void waitForClients(int *current_game){
 		insertArray(&players[*current_game], aux);
 		printf("Player connected: %s\n", aux.username);
 		memset(aux.username, 0, sizeof(aux.username));
-		// printf("%zu\n", players[*current_game].used);
 	}
 }
 

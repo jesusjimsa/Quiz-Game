@@ -43,11 +43,6 @@ struct Round{
 	char correct_answer;
 };
 
-// struct ResultRound{
-// 	char correct_answer[50];
-// 	int points;
-// };
-
 void printRound(struct Round ronda){
 	printf("%s\n", ronda.question);
 	printf("A. %s\tB. %s\nC. %s\tD. %s\n", ronda.A, ronda.B, ronda.C, ronda.D);
