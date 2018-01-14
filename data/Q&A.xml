@@ -582,6 +582,281 @@
 		<answer>B</answer>
 	</round>
 
-	<!-- Next question: #0051 -->
+	<round>
+		<question>What is the meaning of the colloquial expression 'in the bag'?</question>
+		<options>
+			<optionA>Almost certain</optionA>
+			<optionB>Newly bought</optionB>
+			<optionC>Freshly cooked</optionC>
+			<optionD>Recently stolen</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Which activity would you most associate with a mole?</question>
+		<options>
+			<optionA>Burrowing</optionA>
+			<optionB>Climbing</optionB>
+			<optionC>Swimming</optionC>
+			<optionD>Flying</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Which is not a type of antelope?</question>
+		<options>
+			<optionA>Gorilla</optionA>
+			<optionB>Gerenuk</optionB>
+			<optionC>Gemsbok</optionC>
+			<optionD>Gnu</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Wich is an alternative name for members of the Society of Fiends?</question>
+		<options>
+			<optionA>Kellogg's</optionA>
+			<optionB>Special Ks</optionB>
+			<optionC>Quakers</optionC>
+			<optionD>Jordans</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Wich is another name for a short melodious tune?</question>
+		<options>
+			<optionA>Oxygen</optionA>
+			<optionB>Air</optionB>
+			<optionC>Nitrogen</optionC>
+			<optionD>Stratosphere</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is a large woodwind instrument?</question>
+		<options>
+			<optionA>Buffoon</optionA>
+			<optionB>Pantaloon</optionB>
+			<optionC>Basson</optionC>
+			<optionD>Macaroon</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>In the nursery rhyme, who met a pieman?</question>
+		<options>
+			<optionA>Easy Eric</optionA>
+			<optionB>Plain Peter</optionB>
+			<optionC>Simple Simon</optionC>
+			<optionD>No Frills Fred</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is a material often used to make floor mats?</question>
+		<options>
+			<optionA>Rush</optionA>
+			<optionB>Dash</optionB>
+			<optionC>Hustle</optionC>
+			<optionD>Bustle</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>In which of the following might food be stored?</question>
+		<options>
+			<optionA>Larder</optionA>
+			<optionB>Shed</optionB>
+			<optionC>Green house</optionC>
+			<optionD>Grarage</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>What is rioja a type of?</question>
+		<options>
+			<optionA>Bread</optionA>
+			<optionB>Vegetable</optionB>
+			<optionC>Wine</optionC>
+			<optionD>Nut</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Germania was the Roman name for which modern-day European country?</question>
+		<options>
+			<optionA>France</optionA>
+			<optionB>Austria</optionB>
+			<optionC>Germany</optionC>
+			<optionD>Spain</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>What was the UK's top paying attraction of 2002?</question>
+		<options>
+			<optionA>Nose</optionA>
+			<optionB>Mouth</optionB>
+			<optionC>Eye</optionC>
+			<optionD>Ear</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is a Scottish district council?</question>
+		<options>
+			<optionA>Inverchristopher</optionA>
+			<optionB>Inverclyde</optionB>
+			<optionC>Inverclint</optionC>
+			<optionD>Invercharles</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>In which town are the administrative headquarters of Kent?</question>
+		<options>
+			<optionA>Maidstone</optionA>
+			<optionB>Lasspebble</optionB>
+			<optionC>Girlrock</optionC>
+			<optionD>Missgravel</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Which of thes geographical features is a mountain?</question>
+		<options>
+			<optionA>Kilimanjaro</optionA>
+			<optionB>Danube</optionB>
+			<optionC>Amazon</optionC>
+			<optionD>Nile</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Which word goes before 'States of America' to give the name of a country?</question>
+		<options>
+			<optionA>Joined</optionA>
+			<optionB>Agreed</optionB>
+			<optionC>United</optionC>
+			<optionD>Hermonious</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Which was a famous group of hgh-kicking stage dancers?</question>
+		<options>
+			<optionA>Checkout Girls</optionA>
+			<optionB>Cashpoint Girls</optionB>
+			<optionC>Tiller Girls</optionC>
+			<optionD>Turnstile Girls</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is a person who performs tricks that deceive the eye?</question>
+		<options>
+			<optionA>Illustrator</optionA>
+			<optionB>Illuminator</optionB>
+			<optionC>Illiterate</optionC>
+			<optionD>Illusionist</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>Which of the following words for a coat also describes the paper cover of a book?</question>
+		<options>
+			<optionA>Cagoule</optionA>
+			<optionB>Mackintosh</optionB>
+			<optionC>Jacket</optionC>
+			<optionD>Parka</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>What us hug over a hose's head feeding?</question>
+		<options>
+			<optionA>Nosebag</optionA>
+			<optionB>Nosegay</optionB>
+			<optionC>Nosedive</optionC>
+			<optionD>Nosejob</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Something mediocre can be described as 'no grat...'?</question>
+		<options>
+			<optionA>Shakes</optionA>
+			<optionB>Quivers</optionB>
+			<optionC>Wobbles</optionC>
+			<optionD>Trembles</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>What do you proverbially let down when behaving without reserve?</question>
+		<options>
+			<optionA>Shoulders</optionA>
+			<optionB>Elbows</optionB>
+			<optionC>Knees</optionC>
+			<optionD>Hair</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>Which is not a species of seal?</question>
+		<options>
+			<optionA>Elephant</optionA>
+			<optionB>Leopard</optionB>
+			<optionC>Three-legged</optionC>
+			<optionD>Grey</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Which keyboard player was awarded the OBE in the 2003 Birthday Honours list?</question>
+		<options>
+			<optionA>Cools Belgium</optionA>
+			<optionB>Drools Luxembourg</optionB>
+			<optionC>Fools France</optionC>
+			<optionD>Jools Holland</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>Which show took place between 6th-9th March 2004 at the NEC, Birmingham?</question>
+		<options>
+			<optionA>Toffs</optionA>
+			<optionB>Cuffs</optionB>
+			<optionC>Crufts</optionC>
+			<optionD>Lifts</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+
+	<!-- Next question: #0077 -->
 	<!-- https://www.gamefaqs.com/gba/919785-who-wants-to-be-a-millionaire-2nd-edition/faqs/40044 -->
 </quiz>
