@@ -150,8 +150,7 @@ int main(int argc, char *argv[]){
 
 		if(difftime(timeBefore, timeAfter) > TIME_TO_ANSWER){
 			answer = 'X';	// Not a valid answer
-			printf("Too slow answering")
-
+			printf("Too slow answering");
 		}
 
 		switch(answer){
