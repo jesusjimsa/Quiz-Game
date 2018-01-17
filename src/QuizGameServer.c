@@ -157,7 +157,7 @@ void game(int *current_game){
 	int i, j;
 	int add_points;
 	int current = *current_game;
-	const int numberOfRounds = 2;
+	const int numberOfRounds = 10;
 	char *result = "\0";
 	char *resultUntilNow = "\0";
 	char *newResult = "\0";
@@ -236,7 +236,7 @@ void game(int *current_game){
 		if((newResult = malloc((strlen(players[current].array[i].username) + 25) * 2)) != NULL){
 			newResult[0] = '\0';
 
-			sprintf(newResult, "%s –– %d points\n", i + 1, players[current].array[i].username, players[current].array[i].score);
+			sprintf(newResult, "%s –– %d points\n", players[current].array[i].username, players[current].array[i].score);
 		}
 		else{
 			perror("Malloc failed!\n");
@@ -466,9 +466,9 @@ int main(){
 	}
 
 	/* Creation of the first thread that will handle the game */
-	int errG[50];
+	int errG[100];
 	
-	for(i = 0; i < 50; i++){
+	for(i = 0; i < 100; i++){
 		current_game = i;
 
 		errG[i] = pthread_create(&(tid[i]), NULL, &game, &current_game);
