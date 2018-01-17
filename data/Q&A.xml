@@ -857,6 +857,300 @@
 		<answer>C</answer>
 	</round>
 
-	<!-- Next question: #0077 -->
-	<!-- https://www.gamefaqs.com/gba/919785-who-wants-to-be-a-millionaire-2nd-edition/faqs/40044 -->
+	<round>
+		<question>Harrison Ford announced in August 2003, that he would make a fourth film playing which role?</question>
+		<options>
+			<optionA>Nevada Morgan</optionA>
+			<optionB>Wyoming Williams</optionB>
+			<optionC>Indiana Jones</optionC>
+			<optionD>Montana Evans</optionD>0
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>August 16th 2003 was the 40th anniversary of which 'Great' robbery?</question>
+		<options>
+			<optionA>Hovercraft</optionA>
+			<optionB>Pushchair</optionB>
+			<optionC>Balloon</optionC>
+			<optionD>Train</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>Which member of the Royal Family celebrated his 19th birthday in September 2003?</question>
+		<options>
+			<optionA>Prince Edward</optionA>
+			<optionB>Prince Andrew</optionB>
+			<optionC>Prince Harry</optionC>
+			<optionD>Prince Charles</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>With which football club was David Beckham's name not linked in 2003?</question>
+		<options>
+			<optionA>Barcelona</optionA>
+			<optionB>Scunthorpe United</optionB>
+			<optionC>Ac Milan</optionC>
+			<optionD>Real Madrid</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>Whose return to 'EastEnders' in 2004 sparked a 560 megawatt power surge on the national grid?</question>
+		<options>
+			<optionA>Filthy Fred</optionA>
+			<optionB>Smutty Sam</optionB>
+			<optionC>Grubby Gordon</optionC>
+			<optionD>Dirty Den</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>Which patron saint's day falls on 23rd April?</question>
+		<options>
+			<optionA>St Harry</optionA>
+			<optionB>St Albert</optionB>
+			<optionC>St George</optionC>
+			<optionD>St William</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>What is celebrated in Wales on 1st March?</question>
+		<options>
+			<optionA>Gareth Edwards Day</optionA>
+			<optionB>St David's Day</optionB>
+			<optionC>Tom Jones Day</optionC>
+			<optionD>Richard Burton Day</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>Which adjective applied to Friday 9th April in 2004?</question>
+		<options>
+			<optionA>Good</optionA>
+			<optionB>Bad</optionB>
+			<optionC>Ugly</optionC>
+			<optionD>Indifferent</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Wich of these is a popular form of music?</question>
+		<options>
+			<optionA>Country and Eastern</optionA>
+			<optionB>Kingdom and Northern</optionB>
+			<optionC>Land and Southern</optionC>
+			<optionD>Country and Western</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is a slang term for a mean person?</question>
+		<options>
+			<optionA>Cheapskate</optionA>
+			<optionB>Cheapshark</optionB>
+			<optionC>Cheapmackerel</optionC>
+			<optionD>Cheaphaddock</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is a common term for a programme of physical exercises?</question>
+		<options>
+			<optionA>Stay able</optionA>
+			<optionB>Remain trim</optionB>
+			<optionC>Continue competent</optionC>
+			<optionD>Keep fit</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>What is the usual name for an establishment containing a lot of fruit machines?</question>
+		<options>
+			<optionA>Amusement arcade</optionA>
+			<optionB>Happy house</optionB>
+			<optionC>Fun folly</optionC>
+			<optionD>Hilarity hall</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Which of thesee means displaying advertising posters in an unauthorised place?</question>
+		<options>
+			<optionA>Ant-posting</optionA>
+			<optionB>Bee-posting</optionB>
+			<optionC>Fly-posting</optionC>
+			<optionD>Wasp-posting</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>On which of these might you win a large amount of money?</question>
+		<options>
+			<optionA>National Flattery</optionA>
+			<optionB>National Lottery</optionB>
+			<optionC>National Battery</optionC>
+			<optionD>National Pottery</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>What kind of envelope has a transparent section through which the address can be seen?</question>
+		<options>
+			<optionA>Fanlight</optionA>
+			<optionB>Door</optionB>
+			<optionC>Sunroof</optionC>
+			<optionD>Window</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is a type of beer?</question>
+		<options>
+			<optionA>Acid</optionA>
+			<optionB>Bitter</optionB>
+			<optionC>Tart</optionC>
+			<optionD>Sour</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>What is a woman said to do with her eyelashes when she is being flirtatious?</question>
+		<options>
+			<optionA>Litter</optionA>
+			<optionB>Platter</optionB>
+			<optionC>Flutter</optionC>
+			<optionD>Rotter</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is an ice cream dessert?</question>
+		<options>
+			<optionA>Sundae</optionA>
+			<optionB>Mondae</optionB>
+			<optionC>Tuesdae</optionC>
+			<optionD>Wednesdae</optionD>
+		</options>
+		<answer>A</answer>
+	</round>
+	
+	<round>
+		<question>Which term means replacing a telephone receiver at the end of a call?</question>
+		<options>
+			<optionA>Jump up</optionA>
+			<optionB>Hang up</optionB>
+			<optionC>Toss up</optionC>
+			<optionD>Play up</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>Which os these is a popular garden flower?</question>
+		<options>
+			<optionA>Busnation</optionA>
+			<optionB>Carnation</optionB>
+			<optionC>Trainnation</optionC>
+			<optionD>Planenation</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>Which of these describes something which causes stress or anxiety?</question>
+		<options>
+			<optionA>Knee-racking</optionA>
+			<optionB>Nerve-racking</optionB>
+			<optionC>Nodule-racking</optionC>
+			<optionD>Nose-racking</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>Which of these is a device often used in a séance?</question>
+		<options>
+			<optionA>Ironing board</optionA>
+			<optionB>Cheeseboard</optionB>
+			<optionC>Circuit board</optionC>
+			<optionD>Ouija board</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>Which of these i a child's playground game in which participants slap each other's hands?</question>
+		<options>
+			<optionA>Pat-a-bap</optionA>
+			<optionB>Pat-a-roll</optionB>
+			<optionC>Pat-a-biscuit</optionC>
+			<optionD>Pat-a-cake</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
+	
+	<round>
+		<question>Which of thes is a term for a typically average man?</question>
+		<options>
+			<optionA>Joe Cole</optionA>
+			<optionB>Joe Bloggs</optionB>
+			<optionC>Joe Bugner</optionC>
+			<optionD>Joe Strummer</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>What is the name of the instrument panel in a car?</question>
+		<options>
+			<optionA>Chargeboard</optionA>
+			<optionB>Sprintboard</optionB>
+			<optionC>Dashboard</optionC>
+			<optionD>Jogboard</optionD>
+		</options>
+		<answer>C</answer>
+	</round>
+	
+	<round>
+		<question>What type of protective hadgear do motorcyclists wear?</question>
+		<options>
+			<optionA>Bash helmet</optionA>
+			<optionB>Crash helmet</optionB>
+			<optionC>Mash helmet</optionC>
+			<optionD>Flash helmet</optionD>
+		</options>
+		<answer>B</answer>
+	</round>
+	
+	<round>
+		<question>In western films, what name is given to a gang of law enforcement officers?</question>
+		<options>
+			<optionA>Bossy</optionA>
+			<optionB>Mossy</optionB>
+			<optionC>Glossy</optionC>
+			<optionD>Posse</optionD>
+		</options>
+		<answer>D</answer>
+	</round>
 </quiz>
