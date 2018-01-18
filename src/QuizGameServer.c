@@ -12,11 +12,6 @@
 	the game so that the game continues smoothly.
 */
 
-/**
- * @todo Just the first player receives question, and just one time
- * the rest of the players and rounds don't work
-*/
-
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
@@ -134,7 +129,7 @@ void waitForClients(int *current_game){
 	while(true){
 		aux.id = accept(sd, (struct sockaddr *) &from, &length);
 
-		/* error al aceptar una conexión de un cliente */
+		/* error accepting the connection of a client */
 		if(aux.id < 0){
 			perror("[server]Error in accept().\n");
 			continue;
@@ -142,8 +137,8 @@ void waitForClients(int *current_game){
 
 		if(recv(aux.id, &aux.username, sizeof(aux.username), 0) <= 0){
 			perror("[server]Error in recv() from client.\n");
-			close(aux.id);	/* cerramos la conexión con el cliente */
-			continue;		/* seguimos escuchando */
+			close(aux.id);	/* close the connection with the client */
+			continue;		/* keep looking for clients */
 		}
 
 		insertArray(&players[*current_game], aux);
@@ -192,7 +187,6 @@ void game(int *current_game){
 
 	semaphore = 1;	// The next game can begin
 
-	// Players that are here since the beginning of the game will participate in 10 rounds
 	for(i = 0; i < numberOfRounds; i++){
 		for(j = 0; j < players[current].used; j++){
 			// We send a random question to the player
